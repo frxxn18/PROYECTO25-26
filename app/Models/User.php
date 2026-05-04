@@ -10,10 +10,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', 
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
-    ];
+    ]; 
+
+    
+     /* Función para verificar si el usuario es administrador*/
+
+    public function isAdmin(): bool
+    {
+        // Esto devolverá true si el campo role es exactamente 'admin'
+        return $this->role === 'admin';
+    }
 }
