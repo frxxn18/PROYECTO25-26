@@ -25,7 +25,26 @@ Route::middleware('admin')->group(function () {
 
     // Dashboard
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $totalAlumnos      = \App\Models\Alumno::count();
+        $totalLibros       = \App\Models\Libro::count();
+        $prestamosActivos  = \App\Models\Prestamo::whereNull('fecha_devolucion')->count();
+        $ultimosPrestamos  = \App\Models\Prestamo::with(['alumno', 'libro'])
+                                ->latest()
+                                ->take(8)
+                                ->get();
+ 
+        // Vencidos: activos con más de 15 días sin devolver
+        $prestamosVencidos = \App\Models\Prestamo::whereNull('fecha_devolucion')
+                                ->where('fecha_prestamo', '<', now()->subDays(15))
+                                ->count();
+ 
+        return view('dashboard', compact(
+            'totalAlumnos',
+            'totalLibros',
+            'prestamosActivos',
+            'prestamosVencidos',
+            'ultimosPrestamos'
+        ));
     })->name('dashboard');
 
     // Alumnos
