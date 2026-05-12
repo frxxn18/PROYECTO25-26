@@ -16,7 +16,7 @@ class AlumnoController extends Controller
         if ($request->filled('buscar')) {
             $query->where('nombre', 'like', '%' . $request->buscar . '%')
                   ->orWhere('apellidos', 'like', '%' . $request->buscar . '%')
-                  ->orWhere('nia', 'like', '%' . $request->buscar . '%');
+                  ->orWhere('dni', 'like', '%' . $request->buscar . '%');
         }
 
         if ($request->filled('curso_id')) {
@@ -61,7 +61,7 @@ class AlumnoController extends Controller
 
     public function destroy(Alumno $alumno)
     {
-        if ($alumno->prestamos()->where('estado', 'P')->exists()) {
+        if ($alumno->prestamos()->whereNull('fecha_devolucion')->exists()) {
             return redirect()->route('alumnos.index')->with('error', 'No se puede eliminar un alumno con préstamos activos.');
         }
 
