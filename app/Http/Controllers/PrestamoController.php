@@ -25,7 +25,10 @@ class PrestamoController extends Controller
         $alumnos = Alumno::orderBy('apellidos')->get();
         $libros = Libro::all()->filter(fn($l) => $l->disponibles > 0)->sortBy('titulo');
 
-        return view('prestamos.create', compact('alumnos', 'libros'));
+        //Se da un año el libro y sino es un moroso
+        $maxFecha = now()->addYear()->format('Y-m-d');
+
+        return view('prestamos.create', compact('alumnos', 'libros', 'maxFecha'));
     }
 
     public function store(PrestamoRequest $request)

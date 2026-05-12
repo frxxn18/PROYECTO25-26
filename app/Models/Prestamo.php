@@ -14,12 +14,14 @@ class Prestamo extends Model
         'libro_id',
         'fecha_prestamo',
         'fecha_devolucion',
+        'fecha_devolucion_prevista',
         'observaciones',
     ];
 
     protected $casts = [
         'fecha_prestamo'   => 'date',
         'fecha_devolucion' => 'date',
+        'fecha_devolucion_prevista' => 'date',
     ];
 
     // Relaciones
@@ -47,6 +49,10 @@ class Prestamo extends Model
 
     public function estaVencido(): bool
     {
-        return $this->estaActivo() && $this->diasEnPrestamo() > 15;
+        if (!$this->estaActivo()) return False;
+        if($this->fecha_devolucion_prevista) {
+            return now()->gt($this->fecha_devolucion_pervista);
+        }
+        return $this->diasEnPrestamo() > 15;
     }
 }

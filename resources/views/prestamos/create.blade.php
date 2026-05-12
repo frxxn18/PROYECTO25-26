@@ -61,6 +61,22 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">
+                            Fecha prevista de devolución <span class="text-danger">*</span>
+                        </label>
+                        <input type="date"
+                                name="fecha_devolucion_prevista"
+                                class="form-control @error('fecha_devolucion_prevista') is-invalid @enderror"
+                                value="{{ old('fecha_devolucion_prevista') }}"
+                                min="{{ date('Y-m-d') }}"
+                                max="{{ $maxFecha }}">
+                        <div class="form-text">Máximo 1 año desde hoy ({{ now()->addYear()->format('d/m/Y') }})</div>
+                        @error('fecha_devolucion_prevista')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Observaciones</label>
                         <textarea name="observaciones"
                                   class="form-control @error('observaciones') is-invalid @enderror"
