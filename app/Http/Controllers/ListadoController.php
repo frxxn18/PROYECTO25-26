@@ -19,7 +19,7 @@ class ListadoController extends Controller
             $q->whereNull('fecha_devolucion')->with('libro');
         }])->orderBy('nombre')->get();
 
-        return view('listados.por_curso', compact('cursos'));
+        return view('listados.porCurso', compact('cursos'));
     }
 
     public function porAlumno()
@@ -33,7 +33,7 @@ class ListadoController extends Controller
         ->orderBy('apellidos')
         ->get();
 
-        return view('listados.por_alumno', compact('alumnos'));
+        return view('listados.porAlumno', compact('alumnos'));
     }
 
     public function porEstado()
@@ -48,6 +48,6 @@ class ListadoController extends Controller
             ->orderBy('fecha_devolucion', 'desc')
             ->paginate(20);
 
-        return view('listados.por_estado', compact('prestados', 'devueltos'));
+        return view('listados.porEstado', compact('prestados', 'devueltos'));
     }
 }

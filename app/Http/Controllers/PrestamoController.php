@@ -23,7 +23,7 @@ class PrestamoController extends Controller
     public function create()
     {
         $alumnos = Alumno::orderBy('apellidos')->get();
-        $libros  = Libro::where('disponibles', '>', 0)->orderBy('titulo')->get();
+        $libros = Libro::all()->filter(fn($l) => $l->disponibles > 0)->sortBy('titulo');
 
         return view('prestamos.create', compact('alumnos', 'libros'));
     }
