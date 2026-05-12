@@ -44,6 +44,7 @@ class PrestamoController extends Controller
             'alumno_id'        => $request->alumno_id,
             'libro_id'         => $request->libro_id,
             'fecha_prestamo'   => $request->fecha_prestamo ?? Carbon::today(),
+            'fecha_devolucion_prevista' => $request->fecha_devolucion_prevista,
             'fecha_devolucion' => null,
             'observaciones'    => $request->observaciones,
         ]);

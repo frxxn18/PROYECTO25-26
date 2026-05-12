@@ -31,8 +31,9 @@
                     <th>Alumno</th>
                     <th>Libro</th>
                     <th>Fecha préstamo</th>
-                    <th class="text-center">Días</th>
-                    <th class="text-end">Acciones</th>
+                    <th>Devolución prevista</th>
+                    <th class="text-center">Estado</th>
+                    <th class = "text-end">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,10 +42,13 @@
                     <td>{{ $prestamo->alumno->apellidos }}, {{ $prestamo->alumno->nombre }}</td>
                     <td>{{ $prestamo->libro->titulo }}</td>
                     <td>{{ $prestamo->fecha_prestamo->format('d/m/Y') }}</td>
+                    <td>{{ $prestamo->fecha_devolucion_prevista?->format('d/m/Y') ?? '—' }}</td>
                     <td class="text-center">
-                        <span class="badge {{ $prestamo->estaVencido() ? 'bg-danger' : 'bg-secondary' }}">
-                            {{ $prestamo->diasEnPrestamo() }}
-                        </span>
+                        @if($prestamo->estaVencido())
+                            <span class="badge bg-danger">Vencido</span>
+                        @else
+                            <span class="badge bg-success">Al día</span>
+                        @endif
                     </td>
                     <td class="text-end">
                         <a href="{{ route('prestamos.contrato', $prestamo) }}"
@@ -66,7 +70,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="text-center text-muted py-4">
+                    <td colspan="6" class="text-center text-muted py-4">
                         <i class="bi bi-inbox fs-4 d-block mb-2"></i>
                         No hay préstamos activos.
                     </td>

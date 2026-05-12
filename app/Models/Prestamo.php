@@ -51,7 +51,7 @@ class Prestamo extends Model
     {
         if (!$this->estaActivo()) return False;
         if($this->fecha_devolucion_prevista) {
-            return now()->gt($this->fecha_devolucion_pervista);
+            return now()->gt($this->fecha_devolucion_prevista);
         }
         return $this->diasEnPrestamo() > 15;
     }
