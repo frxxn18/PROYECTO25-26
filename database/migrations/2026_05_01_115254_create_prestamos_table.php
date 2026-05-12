@@ -15,6 +15,7 @@ return new class extends Migration
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion')->nullable();
             $table->enum('estado', ['P', 'D'])->default('P');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }
