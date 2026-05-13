@@ -9,6 +9,7 @@ use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\ListadoController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\UserController;
 
 // Redirigir raíz al login
 Route::get('/', function () {
@@ -20,7 +21,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Rutas protegidas
+// Rutas de administrador
 Route::middleware('admin')->group(function () {
 
     // Dashboard
@@ -32,12 +33,11 @@ Route::middleware('admin')->group(function () {
                                 ->latest()
                                 ->take(8)
                                 ->get();
- 
-        // Vencidos: activos con más de 15 días sin devolver
+
         $prestamosVencidos = \App\Models\Prestamo::whereNull('fecha_devolucion')
-                                ->where('fecha_prestamo', '<', now()->subDays(15))
+                                ->where('fecha_devolucion_prevista', '<', now())
                                 ->count();
- 
+
         return view('dashboard', compact(
             'totalAlumnos',
             'totalLibros',
@@ -76,4 +76,14 @@ Route::middleware('admin')->group(function () {
     Route::get('/exportacion/alumnos', [ExportController::class, 'exportAlumnos'])->name('exportacion.alumnos');
     Route::get('/exportacion/prestamos', [ExportController::class, 'exportPrestamos'])->name('exportacion.prestamos');
     Route::get('/exportacion/backup', [ExportController::class, 'backup'])->name('exportacion.backup');
+
+    // Gestión de usuarios
+    Route::get('/alumnos/{alumno}/crear-usuario', [UserController::class, 'create'])->name('user.create');
+    Route::post('/alumnos/{alumno}/crear-usuario', [UserController::class, 'store'])->name('user.store');
+
+});
+
+// Rutas de usuario normal
+Route::middleware('auth.user')->group(function () {
+    Route::get('/mis-prestamos', [UserController::class, 'dashboard'])->name('user.dashboard');
 });

@@ -26,4 +26,9 @@ class User extends Authenticatable
         // Esto devolverá true si el campo role es exactamente 'admin'
         return $this->role === 'admin';
     }
+
+    public function alumno()
+    {
+        return $this->hasOne(Alumno::class);
+    }
 }

@@ -55,7 +55,12 @@
     <div id="topbar">
         <span class="fw-semibold">@yield('titulo', 'Dashboard')</span>
         <div class="d-flex align-items-center gap-3">
-            <span class="text-muted small">{{ Auth::user()->name }}</span>
+            <span class="text-muted small">
+                {{ Auth::user()->name }}
+                <span class="badge {{ Auth::user()->role === 'admin' ? 'bg-primary' : 'bg-secondary' }} ms-1">
+                    {{ Auth::user()->role === 'admin' ? 'Administrador' : 'Usuario' }}
+                </span>
+            </span>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="btn btn-sm btn-outline-secondary">

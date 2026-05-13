@@ -8,11 +8,16 @@ use App\Models\Prestamo;
 
 class Alumno extends Model
 {
-    protected $fillable = ['nombre', 'apellidos', 'dni', 'curso_id'];
+    protected $fillable = ['nombre', 'apellidos', 'dni', 'curso_id', 'user_id'];
 
     public function curso()
     {
         return $this->belongsTo(Curso::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function prestamos()

@@ -6,6 +6,15 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h5 class="mb-0">{{ $alumno->apellidos }}, {{ $alumno->nombre }}</h5>
     <div class="d-flex gap-2">
+        @if(!$alumno->user_id)
+            <a href="{{ route('user.create', $alumno) }}" class="btn btn-sm btn-outline-success">
+                <i class="bi bi-person-plus"></i> Crear cuenta
+            </a>
+        @else
+            <span class="badge bg-success align-self-center">
+                <i class="bi bi-person-check"></i> Tiene cuenta
+            </span>
+        @endif
         <a href="{{ route('alumnos.edit', $alumno) }}" class="btn btn-sm btn-outline-primary">
             <i class="bi bi-pencil"></i> Editar
         </a>
@@ -22,8 +31,8 @@
             <div class="card-body">
                 <table class="table table-sm mb-0">
                     <tr>
-                        <th>NIA</th>
-                        <td>{{ $alumno->nia }}</td>
+                        <th>DNI</th>
+                        <td>{{ $alumno->dni }}</td>
                     </tr>
                     <tr>
                         <th>Nombre</th>
@@ -45,6 +54,16 @@
                         <th>Email</th>
                         <td>{{ $alumno->email ?? '-' }}</td>
                     </tr>
+                    <tr>
+                        <th>Cuenta usuario</th>
+                        <td>
+                            @if($alumno->user_id)
+                                {{ $alumno->user->email }}
+                            @else
+                                <span class="text-muted">Sin cuenta</span>
+                            @endif
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -59,6 +78,7 @@
                         <tr>
                             <th>Libro</th>
                             <th>Fecha préstamo</th>
+                            <th>Devolución prevista</th>
                             <th>Fecha devolución</th>
                             <th>Estado</th>
                         </tr>
@@ -67,11 +87,16 @@
                         @forelse($alumno->prestamos as $prestamo)
                         <tr>
                             <td>{{ $prestamo->libro->titulo ?? '-' }}</td>
-                            <td>{{ $prestamo->fecha_prestamo }}</td>
-                            <td>{{ $prestamo->fecha_devolucion ?? '-' }}</td>
+                            <td>{{ $prestamo->fecha_prestamo->format('d/m/Y') }}</td>
+                            <td>{{ $prestamo->fecha_devolucion_prevista?->format('d/m/Y') ?? '-' }}</td>
+                            <td>{{ $prestamo->fecha_devolucion?->format('d/m/Y') ?? '-' }}</td>
                             <td>
-                                @if($prestamo->estado === 'P')
-                                    <span class="badge bg-warning text-dark">Prestado</span>
+                                @if(is_null($prestamo->fecha_devolucion))
+                                    @if($prestamo->estaVencido())
+                                        <span class="badge bg-danger">Vencido</span>
+                                    @else
+                                        <span class="badge bg-warning text-dark">Activo</span>
+                                    @endif
                                 @else
                                     <span class="badge bg-success">Devuelto</span>
                                 @endif
@@ -79,7 +104,9 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-3">Sin préstamos registrados.</td>
+                            <td colspan="5" class="text-center text-muted py-3">
+                                Sin préstamos registrados.
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>

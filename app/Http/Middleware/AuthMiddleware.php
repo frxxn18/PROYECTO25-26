@@ -7,21 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class AuthMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        //si el usuario NO esta loggeado, lo mandamos al login
+        // Si no está loggeado, al login
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        //si esta loggeado pero NO es admin entonces lo manda al panel de usuario
-        if(Auth::user()->role !== 'admin'){
-            return redirect()->route('user.dashboard')->with('error', 'No tienes los permisos de administrador');
+        //dd(Auth::user()->role); para pruebas 
+        
+        // Si es admin no debería estar en rutas de usuario, lo mandamos a su dashboard
+        if (Auth::user()->role === 'admin') {
+            return redirect()->away('/PROYECTO25-26/public/dashboard');
         }
 
-        //si eres admin
         return $next($request);
     }
 }
