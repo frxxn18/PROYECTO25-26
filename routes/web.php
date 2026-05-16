@@ -93,6 +93,9 @@ Route::middleware('admin')->group(function () {
     // Gestión de usuarios
     Route::get('/alumnos/{alumno}/crear-usuario', [UserController::class, 'create'])->name('user.create');
     Route::post('/alumnos/{alumno}/crear-usuario', [UserController::class, 'store'])->name('user.store');
+    Route::get('/alumnos/{alumno}/editar-usuario', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/alumnos/{alumno}/editar-usuario', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/alumnos/{alumno}/eliminar-usuario', [UserController::class, 'destroy'])->name('user.destroy');
 
 });
 

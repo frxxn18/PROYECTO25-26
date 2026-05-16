@@ -49,6 +49,7 @@
                     <th>Nombre</th>
                     <th>Curso</th>
                     <th>Teléfono</th>
+                    <th class="text-center">Cuenta</th>
                     <th></th>
                 </tr>
             </thead>
@@ -60,6 +61,17 @@
                     <td>{{ $alumno->nombre }}</td>
                     <td>{{ $alumno->curso->nombre ?? '-' }}</td>
                     <td>{{ $alumno->telefono ?? '-' }}</td>
+                    <td class="text-center">
+                        @if($alumno->user_id)
+                            <span class="badge bg-success">
+                                <i class="bi bi-person-check"></i> Activa
+                            </span>
+                        @else
+                            <span class="badge bg-secondary">
+                                <i class="bi bi-person-x"></i> Sin cuenta
+                            </span>
+                        @endif
+                    </td>
                     <td class="text-end">
                         <a href="{{ route('alumnos.show', $alumno) }}" class="btn btn-sm btn-outline-secondary">
                             <i class="bi bi-eye"></i>
@@ -79,7 +91,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center text-muted py-4">No se encontraron alumnos.</td>
+                    <td colspan="7" class="text-center text-muted py-4">No se encontraron alumnos.</td>
                 </tr>
                 @endforelse
             </tbody>

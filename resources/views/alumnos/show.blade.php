@@ -11,12 +11,20 @@
                 <i class="bi bi-person-plus"></i> Crear cuenta
             </a>
         @else
-            <span class="badge bg-success align-self-center">
-                <i class="bi bi-person-check"></i> Tiene cuenta
-            </span>
+            <a href="{{ route('user.edit', $alumno) }}" class="btn btn-sm btn-outline-success">
+                <i class="bi bi-person-gear"></i> Editar cuenta
+            </a>
+            <form method="POST" action="{{ route('user.destroy', $alumno) }}" class="d-inline"
+                  onsubmit="return confirm('¿Eliminar la cuenta de acceso de este alumno?')">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-person-x"></i> Eliminar cuenta
+                </button>
+            </form>
         @endif
         <a href="{{ route('alumnos.edit', $alumno) }}" class="btn btn-sm btn-outline-primary">
-            <i class="bi bi-pencil"></i> Editar
+            <i class="bi bi-pencil"></i> Editar datos
         </a>
         <a href="{{ route('alumnos.index') }}" class="btn btn-sm btn-outline-secondary">
             <i class="bi bi-arrow-left"></i> Volver
