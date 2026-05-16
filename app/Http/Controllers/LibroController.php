@@ -39,7 +39,7 @@ class LibroController extends Controller
 
     public function destroy(Libro $libro)
     {
-        if ($libro->prestamosActivos()->exists()) {
+        if ($libro->prestamos()->whereNull('fecha_devolucion')->exists()) {
             return back()->with('error', 'No se puede eliminar: el libro tiene préstamos activos.');
         }
         $libro->delete();

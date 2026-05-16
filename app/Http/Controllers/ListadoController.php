@@ -50,4 +50,15 @@ class ListadoController extends Controller
 
         return view('listados.porEstado', compact('prestados', 'devueltos'));
     }
+
+    public function morosos()
+    {
+        $prestamos = Prestamo::with(['alumno', 'libro'])
+            ->whereNull('fecha_devolucion')
+            ->where('fecha_devolucion_prevista', '<', now())
+            ->orderBy('fecha_devolucion_prevista', 'asc')
+            ->get();
+
+        return view('listados.morosos', compact('prestamos'));
+    }
 }

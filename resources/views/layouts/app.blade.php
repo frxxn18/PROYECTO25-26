@@ -43,6 +43,9 @@
         <a href="{{ route('listados.index') }}" class="nav-link {{ request()->is('listados*') ? 'active' : '' }}">
             <i class="bi bi-list-ul"></i> Listados
         </a>
+        <a href="{{ route('listados.morosos') }}" class="nav-link {{ request()->is('listados/morosos*') ? 'active' : '' }}">
+            <i class="bi bi-exclamation-triangle text-danger"></i> Morosos
+        </a>
         <a href="{{ route('exportacion.index') }}" class="nav-link {{ request()->is('exportacion*') ? 'active' : '' }}">
             <i class="bi bi-download"></i> Exportación
         </a>

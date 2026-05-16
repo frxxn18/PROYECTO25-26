@@ -70,6 +70,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/listados/por-curso', [ListadoController::class, 'porCurso'])->name('listados.porCurso');
     Route::get('/listados/por-alumno', [ListadoController::class, 'porAlumno'])->name('listados.porAlumno');
     Route::get('/listados/por-estado', [ListadoController::class, 'porEstado'])->name('listados.porEstado');
+    Route::get('/listados/morosos', [ListadoController::class, 'morosos'])->name('listados.morosos');
 
     // Exportación
     Route::get('/exportacion', [ExportController::class, 'index'])->name('exportacion.index');
