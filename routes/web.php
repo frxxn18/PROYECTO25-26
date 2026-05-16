@@ -21,6 +21,18 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//Ruta de catalogo (sin loggearse)
+Route::get('/catalogo', function () {
+    $buscar = request('buscar');
+    $libros = \App\Models\Libro::when($buscar, fn($q) => $q->where('titulo', 'like', "%$buscar%")
+            ->orWhere('autor', 'like', "%$buscar%")
+            ->orWhere('isbn', 'like', "%$buscar%"))
+        ->orderBy('titulo')
+        ->paginate(15);
+
+    return view('catalogo', compact('libros', 'buscar'));
+})->name('catalogo');
+
 // Rutas de administrador
 Route::middleware('admin')->group(function () {
 

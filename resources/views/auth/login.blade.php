@@ -30,6 +30,10 @@
                 <input type="password" name="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            <p class="text-center text-muted small mt-3">
+                ¿Solo quieres consultar libros?
+                <a href="{{ route('catalogo') }}">Ver catálogo público</a>
+            </p>
         </form>
     </div>
 </div>
