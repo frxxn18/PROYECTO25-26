@@ -16,7 +16,7 @@ class AlumnoRequest extends FormRequest
         return [
             'nombre'    => 'required|string|max:100',
             'apellidos' => 'required|string|max:150',
-            'dni'       => 'nullable|string|max:20|unique:alumnos,dni,' . $this->route('alumno'),
+            'dni' => 'nullable|string|max:20|unique:alumnos,dni,' . ($this->route('alumno')?->id ?? 'NULL'),
             'curso_id'  => 'required|exists:cursos,id',
             'telefono'  => 'nullable|string|max:20',
             'email'     => 'nullable|email|max:255',
