@@ -8,7 +8,7 @@ use App\Models\Prestamo;
 
 class Alumno extends Model
 {
-    protected $fillable = ['nombre', 'apellidos', 'dni', 'curso_id', 'user_id'];
+    protected $fillable = ['nombre', 'apellidos', 'dni', 'curso_id', 'user_id', 'telefono', 'email'];
 
     public function curso()
     {

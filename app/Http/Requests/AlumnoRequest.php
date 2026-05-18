@@ -18,6 +18,8 @@ class AlumnoRequest extends FormRequest
             'apellidos' => 'required|string|max:150',
             'dni'       => 'nullable|string|max:20|unique:alumnos,dni,' . $this->route('alumno'),
             'curso_id'  => 'required|exists:cursos,id',
+            'telefono'  => 'nullable|string|max:20',
+            'email'     => 'nullable|email|max:255',
         ];
     }
 

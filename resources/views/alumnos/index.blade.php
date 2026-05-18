@@ -44,7 +44,7 @@
         <table class="table table-hover mb-0">
             <thead class="table-light">
                 <tr>
-                    <th>NIA</th>
+                    <th>DNI</th>
                     <th>Apellidos</th>
                     <th>Nombre</th>
                     <th>Curso</th>
@@ -56,7 +56,7 @@
             <tbody>
                 @forelse($alumnos as $alumno)
                 <tr>
-                    <td>{{ $alumno->nia }}</td>
+                    <td>{{ $alumno->dni }}</td>
                     <td>{{ $alumno->apellidos }}</td>
                     <td>{{ $alumno->nombre }}</td>
                     <td>{{ $alumno->curso->nombre ?? '-' }}</td>
