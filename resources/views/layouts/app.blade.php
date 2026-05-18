@@ -49,6 +49,11 @@
         <a href="{{ route('exportacion.index') }}" class="nav-link {{ request()->is('exportacion*') ? 'active' : '' }}">
             <i class="bi bi-download"></i> Exportación
         </a>
+
+        <div class="nav-section">Sistema</div>
+        <a href="{{ route('admins.index') }}" class="nav-link {{ request()->is('admins*') ? 'active' : '' }}">
+            <i class="bi bi-shield-lock"></i> Administradores
+        </a>
     </nav>
 </div>
 

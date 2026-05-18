@@ -10,6 +10,7 @@ use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\ListadoController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 // Redirigir raíz al login
 Route::get('/', function () {
@@ -96,6 +97,14 @@ Route::middleware('admin')->group(function () {
     Route::get('/alumnos/{alumno}/editar-usuario', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/alumnos/{alumno}/editar-usuario', [UserController::class, 'update'])->name('user.update');
     Route::delete('/alumnos/{alumno}/eliminar-usuario', [UserController::class, 'destroy'])->name('user.destroy');
+
+    // Administradores
+    Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
+    Route::get('/admins/crear', [AdminController::class, 'create'])->name('admins.create');
+    Route::post('/admins', [AdminController::class, 'store'])->name('admins.store');
+    Route::get('/admins/{admin}/editar', [AdminController::class, 'edit'])->name('admins.edit');
+    Route::put('/admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
+    Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
 
 });
 
