@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Préstamos</title>
+    <title>BankBook</title>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="icon" href="{{ asset('assets/img/BankBook.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/img/logo.png') }}" type="image/png">
 </head>
 <body>
 
 {{-- Sidebar --}}
 <div id="sidebar">
     <div class="sidebar-header">
-        <i class="bi bi-book"></i> Préstamos
+        <img src="{{ asset('assets/img/logo.png') }}" alt="BankBook" style="height: 32px;" class="me-2">
+        BankBook
     </div>
     <nav>
         <div class="nav-section">Principal</div>
