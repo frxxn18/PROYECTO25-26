@@ -16,10 +16,10 @@
             @csrf
             <div class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label">NIA *</label>
-                    <input type="text" name="nia" class="form-control @error('nia') is-invalid @enderror"
-                        value="{{ old('nia') }}">
-                    @error('nia')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <label class="form-label">DNI</label>
+                    <input type="text" name="dni" class="form-control @error('dni') is-invalid @enderror"
+                        value="{{ old('dni') }}">
+                    @error('dni')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Nombre *</label>

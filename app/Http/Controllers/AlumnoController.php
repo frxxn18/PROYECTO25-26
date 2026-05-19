@@ -14,9 +14,11 @@ class AlumnoController extends Controller
         $query = Alumno::with('curso');
 
         if ($request->filled('buscar')) {
-            $query->where('nombre', 'like', '%' . $request->buscar . '%')
+            $query->where(function($q) use ($request) {
+                $q->where('nombre', 'like', '%' . $request->buscar . '%')
                   ->orWhere('apellidos', 'like', '%' . $request->buscar . '%')
                   ->orWhere('dni', 'like', '%' . $request->buscar . '%');
+            });
         }
 
         if ($request->filled('curso_id')) {
@@ -62,10 +64,12 @@ class AlumnoController extends Controller
     public function destroy(Alumno $alumno)
     {
         if ($alumno->prestamos()->whereNull('fecha_devolucion')->exists()) {
-            return redirect()->route('alumnos.index')->with('error', 'No se puede eliminar un alumno con préstamos activos.');
+            return redirect()->route('alumnos.index')
+                ->with('error', 'No se puede eliminar un alumno con préstamos activos.');
         }
 
         $alumno->delete();
-        return redirect()->route('alumnos.index')->with('success', 'Alumno eliminado correctamente.');
+        return redirect()->route('alumnos.index')
+            ->with('success', 'Alumno eliminado correctamente.');
     }
 }

@@ -20,7 +20,7 @@ class AuthMiddleware
         
         // Si es admin no debería estar en rutas de usuario, lo mandamos a su dashboard
         if (Auth::user()->role === 'admin') {
-            return redirect()->away('/PROYECTO25-26/public/dashboard');
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

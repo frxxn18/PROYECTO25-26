@@ -16,7 +16,7 @@ class LibroRequest extends FormRequest
         return [
             'titulo' => 'required|string|max:200',
             'autor'  => 'required|string|max:150',
-            'isbn'   => 'nullable|string|max:20|unique:libros,isbn,' . $this->route('libro'),
+            'isbn' => 'nullable|string|max:20|unique:libros,isbn,' . ($this->route('libro')?->id ?? 'NULL'),
             'stock'  => 'required|integer|min:0',
         ];
     }
