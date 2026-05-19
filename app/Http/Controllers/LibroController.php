@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Libro;
 use App\Http\Requests\LibroRequest;
 use App\Helpers\LogHelper;
+use App\Models\Materia;
 
 class LibroController extends Controller
 {
@@ -16,7 +17,8 @@ class LibroController extends Controller
 
     public function create()
     {
-        return view('libros.create');
+        $materias = Materia::orderBy('nombre')->get();
+        return view('libros.create', compact('materias'));
     }
 
     public function store(LibroRequest $request)
@@ -29,7 +31,8 @@ class LibroController extends Controller
 
     public function edit(Libro $libro)
     {
-        return view('libros.edit', compact('libro'));
+        $materias = Materia::orderBy('nombre')->get();
+        return view('libros.edit', compact('libro', 'materias'));
     }
 
     public function update(LibroRequest $request, Libro $libro)

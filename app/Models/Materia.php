@@ -13,4 +13,10 @@ class Materia extends Model
     {
         return $this->hasMany(Curso::class);
     }
+
+    public function libros()
+    {
+        //Añadir la relacion con libros
+        return $this->hasMany(Libro::class);
+    }
 }

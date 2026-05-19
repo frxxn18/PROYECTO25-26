@@ -32,7 +32,8 @@
 
                 <p>El alumno/a
                     <strong>{{ $prestamo->alumno->nombre }} {{ $prestamo->alumno->apellidos }}</strong>
-                    se compromete a devolver el libro en buen estado en un plazo máximo de 15 días.
+                   se compromete a devolver el libro en buen estado antes del
+                   <strong>{{ $prestamo->fecha_devolucion_prevista?->format('d/m/Y') ?? 'plazo acordado' }}</strong>.
                 </p>
 
                 @if($prestamo->observaciones)
@@ -61,4 +62,29 @@
         </div>
     </div>
 </div>
+@section('scripts')
+<style>
+    @media print {
+        #sidebar,
+        #topbar,
+        .mt-3.d-flex {
+            display: none !important;
+        }
+
+        #content {
+            margin-left: 0 !important;
+            padding: 0 !important;
+        }
+
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        body {
+            background: white !important;
+        }
+    }
+</style>
+@endsection
 @endsection

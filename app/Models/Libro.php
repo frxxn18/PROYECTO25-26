@@ -7,7 +7,7 @@ use App\Models\Prestamo;
 
 class Libro extends Model
 {
-    protected $fillable = ['titulo', 'autor', 'isbn', 'stock']; 
+    protected $fillable = ['titulo', 'autor', 'isbn', 'stock', 'materia_id'];
 
     public function prestamos()
     {
@@ -23,5 +23,11 @@ class Libro extends Model
         $prestados = $this->prestamos()->whereNull('fecha_devolucion')->count();
         
         return $this->stock - $prestados;
+    }
+
+    public function materia()
+    {
+        //Para añadir la relacion con materia
+        return $this->belongsTo(Materia::class);
     }
 }

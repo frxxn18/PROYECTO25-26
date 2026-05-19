@@ -16,6 +16,7 @@
                 <tr>
                     <th>Título</th>
                     <th>Autor</th>
+                    <th>Materia</th>
                     <th>ISBN</th>
                     <th class="text-center">Ejemplares</th>
                     <th class="text-center">Disponibles</th>
@@ -27,6 +28,7 @@
                 <tr>
                     <td>{{ $libro->titulo }}</td>
                     <td class="text-muted">{{ $libro->autor }}</td>
+                    <td class="text-muted">{{ $libro->materia->nombre ?? '—' }}</td>
                     <td class="text-muted small">{{ $libro->isbn ?? '—' }}</td>
                     <td class="text-center">{{ $libro->stock }}</td>
                     <td class="text-center">
@@ -49,7 +51,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center text-muted py-4">No hay libros registrados.</td>
+                    <td colspan="7" class="text-center text-muted py-4">No hay libros registrados.</td>
                 </tr>
                 @endforelse
             </tbody>

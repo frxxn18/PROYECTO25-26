@@ -18,6 +18,7 @@ class LibroRequest extends FormRequest
             'autor'  => 'required|string|max:150',
             'isbn' => 'nullable|string|max:20|unique:libros,isbn,' . ($this->route('libro')?->id ?? 'NULL'),
             'stock'  => 'required|integer|min:0',
+            'materia_id' => 'nullable|exists:materias,id',
         ];
     }
 
