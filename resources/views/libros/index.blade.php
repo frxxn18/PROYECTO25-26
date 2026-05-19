@@ -28,7 +28,7 @@
                     <td>{{ $libro->titulo }}</td>
                     <td class="text-muted">{{ $libro->autor }}</td>
                     <td class="text-muted small">{{ $libro->isbn ?? '—' }}</td>
-                    <td class="text-center">{{ $libro->ejemplares }}</td>
+                    <td class="text-center">{{ $libro->stock }}</td>
                     <td class="text-center">
                         <span class="badge {{ $libro->disponibles > 0 ? 'bg-success' : 'bg-danger' }}">
                             {{ $libro->disponibles }}
