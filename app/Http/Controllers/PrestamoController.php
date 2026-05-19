@@ -7,6 +7,7 @@ use App\Models\Alumno;
 use App\Models\Libro;
 use App\Http\Requests\PrestamoRequest;
 use Carbon\Carbon;
+use App\Helpers\LogHelper;
 
 class PrestamoController extends Controller
 {
@@ -48,6 +49,7 @@ class PrestamoController extends Controller
             'fecha_devolucion' => null,
             'observaciones'    => $request->observaciones,
         ]);
+        LogHelper::registrar('prestar', 'Préstamos', 'Préstamo registrado: ' . $request->alumno_id . ' → libro ' . $request->libro_id);
 
         return redirect()->route('prestamos.index')
             ->with('success', 'Préstamo registrado correctamente.');
@@ -73,6 +75,7 @@ class PrestamoController extends Controller
         $prestamo->update([
             'fecha_devolucion' => Carbon::today(),
         ]);
+        LogHelper::registrar('devolver', 'Préstamos', 'Devolución registrada: ' . $prestamo->alumno->nombre . ' → ' . $prestamo->libro->titulo);
 
         return redirect()->route('prestamos.index')
             ->with('success', 'Devolución registrada correctamente.');
@@ -86,6 +89,7 @@ class PrestamoController extends Controller
     public function destroy(Prestamo $prestamo)
     {
         $prestamo->delete();
+        LogHelper::registrar('eliminar', 'Préstamos', 'Préstamo eliminado: id ' . $prestamo->id);
 
         return redirect()->route('prestamos.index')
             ->with('success', 'Préstamo eliminado correctamente.');

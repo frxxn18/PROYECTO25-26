@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\LogHelper;
 
 class AuthController extends Controller
 {
@@ -20,6 +21,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            LogHelper::registrar('login', 'Auth', 'Inicio de sesión: ' . $request->email);
             $request->session()->regenerate();
 
             if (Auth::user()->role === 'admin') {
@@ -36,6 +38,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        LogHelper::registrar('logout', 'Auth', 'Cierre de sesión: ' . Auth::user()->email);
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

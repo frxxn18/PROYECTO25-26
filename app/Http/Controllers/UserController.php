@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\LogHelper;
 
 class UserController extends Controller
 {
@@ -37,6 +38,7 @@ class UserController extends Controller
         ]);
 
         $alumno->update(['user_id' => $user->id]);
+        LogHelper::registrar('crear', 'Usuarios', 'Cuenta creada para: ' . $alumno->nombre . ' ' . $alumno->apellidos);
 
         return redirect()->route('alumnos.show', $alumno)
             ->with('success', 'Cuenta de usuario creada correctamente.');
@@ -70,6 +72,7 @@ class UserController extends Controller
         }
 
         $user->save();
+        LogHelper::registrar('editar', 'Usuarios', 'Cuenta editada: ' . $alumno->nombre . ' ' . $alumno->apellidos);
 
         return redirect()->route('alumnos.show', $alumno)
             ->with('success', 'Cuenta actualizada correctamente.');
@@ -86,6 +89,7 @@ class UserController extends Controller
         $user = $alumno->user;
         $alumno->update(['user_id' => null]);
         $user->delete();
+        LogHelper::registrar('eliminar', 'Usuarios', 'Cuenta eliminada: ' . $alumno->nombre . ' ' . $alumno->apellidos);
 
         return redirect()->route('alumnos.show', $alumno)
             ->with('success', 'Cuenta eliminada correctamente.');

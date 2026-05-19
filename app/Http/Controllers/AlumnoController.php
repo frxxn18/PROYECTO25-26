@@ -6,6 +6,7 @@ use App\Models\Alumno;
 use App\Models\Curso;
 use App\Http\Requests\AlumnoRequest;
 use Illuminate\Http\Request;
+use App\Helpers\LogHelper;
 
 class AlumnoController extends Controller
 {
@@ -40,6 +41,7 @@ class AlumnoController extends Controller
     public function store(AlumnoRequest $request)
     {
         Alumno::create($request->validated());
+        LogHelper::registrar('crear', 'Alumnos', 'Alumno creado: ' . $request->nombre . ' ' . $request->apellidos);
         return redirect()->route('alumnos.index')->with('success', 'Alumno creado correctamente.');
     }
 
@@ -58,6 +60,7 @@ class AlumnoController extends Controller
     public function update(AlumnoRequest $request, Alumno $alumno)
     {
         $alumno->update($request->validated());
+        LogHelper::registrar('editar', 'Alumnos', 'Alumno editado: ' . $alumno->nombre . ' ' . $alumno->apellidos);
         return redirect()->route('alumnos.index')->with('success', 'Alumno actualizado correctamente.');
     }
 
@@ -69,6 +72,7 @@ class AlumnoController extends Controller
         }
 
         $alumno->delete();
+        LogHelper::registrar('eliminar', 'Alumnos', 'Alumno eliminado: ' . $alumno->nombre . ' ' . $alumno->apellidos);
         return redirect()->route('alumnos.index')
             ->with('success', 'Alumno eliminado correctamente.');
     }

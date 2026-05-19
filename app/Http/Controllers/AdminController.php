@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\LogHelper;
 
 class AdminController extends Controller
 {
@@ -33,6 +34,7 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'role'     => 'admin',
         ]);
+        LogHelper::registrar('crear', 'Administradores', 'Administrador creado: ' . $request->email);
 
         return redirect()->route('admins.index')
             ->with('success', 'Administrador creado correctamente.');
@@ -64,6 +66,7 @@ class AdminController extends Controller
         }
 
         $admin->save();
+        LogHelper::registrar('editar', 'Administradores', 'Administrador editado: ' . $admin->email);
 
         return redirect()->route('admins.index')
             ->with('success', 'Administrador actualizado correctamente.');
@@ -78,6 +81,7 @@ class AdminController extends Controller
         }
 
         $admin->delete();
+        LogHelper::registrar('eliminar', 'Administradores', 'Administrador eliminado: ' . $admin->email);
 
         return redirect()->route('admins.index')
             ->with('success', 'Administrador eliminado correctamente.');

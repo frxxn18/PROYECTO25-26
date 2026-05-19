@@ -54,6 +54,9 @@
         <a href="{{ route('admins.index') }}" class="nav-link {{ request()->is('admins*') ? 'active' : '' }}">
             <i class="bi bi-shield-lock"></i> Administradores
         </a>
+        <a href="{{ route('logs.index') }}" class="nav-link {{ request()->is('logs*') ? 'active' : '' }}">
+            <i class="bi bi-clock-history"></i> Auditoría
+        </a>
     </nav>
 </div>
 

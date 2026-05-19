@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Libro;
 use App\Http\Requests\LibroRequest;
+use App\Helpers\LogHelper;
 
 class LibroController extends Controller
 {
@@ -21,6 +22,7 @@ class LibroController extends Controller
     public function store(LibroRequest $request)
     {
         Libro::create($request->validated());
+        LogHelper::registrar('crear', 'Libros', 'Libro creado: ' . $request->titulo);
         return redirect()->route('libros.index')
             ->with('success', 'Libro añadido correctamente.');
     }
@@ -33,6 +35,7 @@ class LibroController extends Controller
     public function update(LibroRequest $request, Libro $libro)
     {
         $libro->update($request->validated());
+        LogHelper::registrar('editar', 'Libros', 'Libro editado: ' . $libro->titulo);
         return redirect()->route('libros.index')
             ->with('success', 'Libro actualizado correctamente.');
     }
@@ -43,6 +46,7 @@ class LibroController extends Controller
             return back()->with('error', 'No se puede eliminar: el libro tiene préstamos activos.');
         }
         $libro->delete();
+        LogHelper::registrar('eliminar', 'Libros', 'Libro eliminado: ' . $libro->titulo);
         return redirect()->route('libros.index')
             ->with('success', 'Libro eliminado correctamente.');
     }

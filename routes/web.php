@@ -11,6 +11,7 @@ use App\Http\Controllers\ListadoController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LogController;
 
 // Redirigir raíz al login
 Route::get('/', function () {
@@ -105,6 +106,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/admins/{admin}/editar', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('/admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
     Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
+
+    // Logs
+    Route::get('/logs', [LogController::class, 'index'])->name('logs.index');
 
 });
 
