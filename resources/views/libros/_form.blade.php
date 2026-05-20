@@ -35,7 +35,7 @@
 
 <div class="mb-3">
     <label class="form-label">Nº de ejemplares <span class="text-danger">*</span></label>
-    <input type="number" name="stock" class="form-control @error('ejemplares') is-invalid @enderror"
+    <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror"
            value="{{ old('stock', $libro->stock ?? 1) }}" min="1">
     @error('stock') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>

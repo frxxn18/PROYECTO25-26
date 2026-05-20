@@ -11,7 +11,7 @@ class LibroController extends Controller
 {
     public function index()
     {
-        $libros = Libro::orderBy('titulo')->paginate(15);
+        $libros = Libro::with('materia')->orderBy('titulo')->paginate(15);
         return view('libros.index', compact('libros'));
     }
 

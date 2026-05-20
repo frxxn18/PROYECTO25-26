@@ -21,8 +21,8 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            LogHelper::registrar('login', 'Auth', 'Inicio de sesión: ' . $request->email);
             $request->session()->regenerate();
+            LogHelper::registrar('login', 'Auth', 'Inicio de sesión: ' . $request->email);
 
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('dashboard');

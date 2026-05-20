@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-                <a href="{{ route('listados.porEstado') }}" class="text-danger small text-decoration-none">
+                <a href="{{ route('listados.morosos') }}" class="text-danger small text-decoration-none">
                     Ver listado <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
